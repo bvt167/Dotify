@@ -5,36 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:padding="16dp">
+    android:padding="@dimen/default_padding">
 
     <TextView
         android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="first_avenger"
+        android:text="@string/defaultUsername"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="@dimen/username_text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnChangeUser"
         app:layout_constraintBottom_toBottomOf="@+id/btnChangeUser"/>
+    <EditText
+        android:id="@+id/etNewUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/username_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnChangeUser"
+        app:layout_constraintBottom_toBottomOf="@+id/btnChangeUser"
+        android:visibility="gone"/>
     <Button
         android:id="@+id/btnChangeUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#C0C0C0"
+        android:backgroundTint="@color/btn_background_coor"
         android:textColor="@color/black"
-        android:text="CHANGE USER"
+        android:text="@string/change_user"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
     <ImageView
         android:id="@+id/ivCoverArt"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/default_width"
+        android:layout_height="@dimen/default_height"
         app:layout_constraintDimensionRatio="1:1"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
         android:src="@drawable/strangers_cover_art"
-        android:contentDescription="Strangers Cover Art"
+        android:contentDescription="@string/cover_description"
         app:layout_constraintTop_toBottomOf="@+id/btnChangeUser"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -42,8 +52,8 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Strangers"
-        android:textSize="36sp"
+        android:text="@string/title"
+        android:textSize="@dimen/title_text"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/ivCoverArt"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -52,9 +62,9 @@
         android:id="@+id/tvArtist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Seven Lions featuring Tove Lo, Myron, Shane 54"
+        android:text="@string/artist"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="@dimen/artist_text"
         android:maxLines="1"
         android:ellipsize="end"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
@@ -64,36 +74,48 @@
         android:id="@+id/tvNumPlays"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8sp"
-        android:text="100 plays"
+        android:layout_margin="@dimen/default_margin"
         android:textColor="@color/black"
-        android:textSize="16dp"
+        android:textSize="@dimen/artist_text"
         app:layout_constraintTop_toBottomOf="@+id/tvArtist"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+
     <ImageButton
         android:id="@+id/ibPrevious"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/btn_width"
+        android:layout_height="@dimen/btn_height"
         android:src="@drawable/ic_previous"
+        android:background="@android:color/transparent"
+        android:foreground="?selectableItemBackground"
+        android:contentDescription="@string/previous_btn_description"
         app:layout_constraintTop_toTopOf="@+id/ibPlay"
         app:layout_constraintBottom_toBottomOf="@id/ibPlay"
-        app:layout_constraintRight_toRightOf="@+id/ibPlay"/>
+        app:layout_constraintRight_toLeftOf="@+id/ibPlay"
+        app:layout_constraintLeft_toLeftOf="parent"/>
     <ImageButton
         android:id="@+id/ibPlay"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/play_btn_width"
+        android:layout_height="@dimen/play_btn_height"
         android:src="@drawable/ic_play"
+        android:background="@android:color/transparent"
+        android:foreground="?selectableItemBackground"
+        android:contentDescription="@string/play_btn_description"
         app:layout_constraintTop_toBottomOf="@+id/tvNumPlays"
-        app:layout_constraintRight_toLeftOf="@+id/ibNext"
-        app:layout_constraintLeft_toRightOf="@+id/ibPrevious"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"/>
     <ImageButton
         android:id="@+id/ibNext"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/btn_width"
+        android:layout_height="@dimen/btn_height"
+        android:background="@android:color/transparent"
+        android:foreground="?selectableItemBackground"
+        android:contentDescription="@string/next_btn_description"
         android:src="@drawable/ic_next"
-        app:layout_constraintTop_toTopOf="@+id/ibPlay"
         app:layout_constraintBottom_toBottomOf="@id/ibPlay"
-        app:layout_constraintLeft_toLeftOf="@+id/ibPlay"/>
+        app:layout_constraintLeft_toRightOf="@+id/ibPlay"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ibPlay" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

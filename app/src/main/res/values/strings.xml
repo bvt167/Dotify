@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Dotify</string>
+    <string name="artist">Seven Lions featuring Tove Lo, Myron, Shane 54</string>
+    <string name="defaultUsername">first_avenger</string>
+    <string name="change_user">CHANGE USER</string>
+    <string name="title">Strangers</string>
+    <string name="cover_description">Strangers Cover Art</string>
+    <string name="previous_btn_description">Previous Song</string>
+    <string name="play_btn_description">Play Song</string>
+    <string name="next_btn_description">Next Song</string>
 </resources>
