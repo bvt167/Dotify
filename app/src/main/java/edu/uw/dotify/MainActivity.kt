@@ -25,11 +25,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.ibPrevious.setOnClickListener {
-            showToastMsg("Skipping to previous Track")
+            showToastMsg(getString(R.string.toast_previous))
         }
 
         binding.ibNext.setOnClickListener {
-            showToastMsg("Skipping to next Track")
+            showToastMsg(getString(R.string.toast_next))
         }
 
         binding.btnChangeUser.setOnClickListener {
@@ -64,7 +64,6 @@ class MainActivity : AppCompatActivity() {
         if (!newUsername.isNullOrEmpty()) {
             binding.tvUsername.text = newUsername
             binding.btnChangeUser.text = "Change User"
-            binding.etNewUsername.text.clear()
             binding.tvUsername.visibility = View.VISIBLE
             binding.etNewUsername.visibility = View.GONE
             binding.btnChangeUser.setOnClickListener {
@@ -74,7 +73,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changePlayCountColor() {
-        var currentColor = binding.tvNumPlays.currentTextColor
+        val currentColor = binding.tvNumPlays.currentTextColor
         if (currentColor == getColor(R.color.black)) {
             binding.tvNumPlays.setTextColor(getColor(R.color.purple_700))
         } else {

@@ -8,4 +8,7 @@
     <string name="previous_btn_description">Previous Song</string>
     <string name="play_btn_description">Play Song</string>
     <string name="next_btn_description">Next Song</string>
+    <string name="toast_next">Skipping to next track</string>
+    <string name="toast_previous">Skipping to previous track</string>
+    <string name="square_ratio">1:1</string>
 </resources>

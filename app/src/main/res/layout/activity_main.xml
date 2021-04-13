@@ -21,6 +21,7 @@
         android:id="@+id/etNewUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/defaultUsername"
         android:textColor="@color/black"
         android:textSize="@dimen/username_text"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -31,8 +32,6 @@
         android:id="@+id/btnChangeUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/btn_background_coor"
-        android:textColor="@color/black"
         android:text="@string/change_user"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
@@ -40,7 +39,7 @@
         android:id="@+id/ivCoverArt"
         android:layout_width="@dimen/default_width"
         android:layout_height="@dimen/default_height"
-        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintDimensionRatio="@string/square_ratio"
         android:layout_marginTop="@dimen/default_margin"
         android:layout_marginBottom="@dimen/default_margin"
         android:src="@drawable/strangers_cover_art"
@@ -79,7 +78,15 @@
         android:textSize="@dimen/artist_text"
         app:layout_constraintTop_toBottomOf="@+id/tvArtist"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideline"/>
+    
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="@dimen/default_width"
+        android:layout_height="@dimen/default_height"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="512dp"/>
 
     <ImageButton
         android:id="@+id/ibPrevious"
@@ -101,7 +108,7 @@
         android:background="@android:color/transparent"
         android:foreground="?selectableItemBackground"
         android:contentDescription="@string/play_btn_description"
-        app:layout_constraintTop_toBottomOf="@+id/tvNumPlays"
+        app:layout_constraintTop_toBottomOf="@id/guideline"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread_inside"/>
