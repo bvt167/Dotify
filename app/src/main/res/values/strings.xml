@@ -11,4 +11,6 @@
     <string name="toast_next">Skipping to next track</string>
     <string name="toast_previous">Skipping to previous track</string>
     <string name="square_ratio">1:1</string>
+    <string name="default_mini_player_text">No Song Playing</string>
+    <string name="mini_player_text">%s - %s</string>
 </resources>
