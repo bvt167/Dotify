@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.ericchee.songdataprovider.Song
-import edu.uw.dotify.databinding.ActivityMainBinding
+import edu.uw.dotify.databinding.ActivityPlayerBinding
 import kotlin.random.Random
 
 private const val SONG_KEY = "song"
@@ -26,13 +26,13 @@ fun navigateToPlayerActivity(context: Context, song: Song) = with(context) {
 class PlayerActivity : AppCompatActivity() {
 
     private var numPlays : Int = 0
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityPlayerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_player)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding = ActivityMainBinding.inflate(layoutInflater).apply { setContentView(root) }
+        binding = ActivityPlayerBinding.inflate(layoutInflater).apply { setContentView(root) }
         numPlays = Random.nextInt(0, 1000)
         val currentSong: Song? = intent.getParcelableExtra<Song>(SONG_KEY)
 

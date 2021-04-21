@@ -12,6 +12,7 @@ import edu.uw.dotify.databinding.ActivitySongListBinding
 class SongListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySongListBinding
+    private lateinit var listOfSongs: List<Song>
     private var currentSong: Song? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +23,7 @@ class SongListActivity : AppCompatActivity() {
         binding = ActivitySongListBinding.inflate(layoutInflater).apply { setContentView(root) }
 
         with (binding) {
-            var listOfSongs = SongDataProvider.getAllSongs().toMutableList()
+            listOfSongs = SongDataProvider.getAllSongs()
             val adapter = SongListAdapter(listOfSongs)
             rvAllSongs.adapter = adapter
 
@@ -32,15 +33,16 @@ class SongListActivity : AppCompatActivity() {
             }
 
             adapter.onSongLongClickListener = {position, song ->
-                listOfSongs.removeAt(position)
+                val editedList = listOfSongs.toMutableList().apply{ removeAt(position) }
                 Toast.makeText(this@SongListActivity,
                     root.context.getString(R.string.toast_delete_song, song.title, song.artist),
                     Toast.LENGTH_SHORT).show()
-                adapter.updateSongList(listOfSongs)
+                adapter.shuffleSongList(editedList)
+                listOfSongs = editedList
             }
 
             btnShuffle.setOnClickListener {
-                adapter.updateSongList(listOfSongs.shuffled())
+                adapter.shuffleSongList(listOfSongs.toMutableList().shuffled())
             }
 
             clMiniPlayer.setOnClickListener {
