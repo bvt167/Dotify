@@ -1,9 +1,7 @@
 package edu.uw.dotify
 
-import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import com.ericchee.songdataprovider.Song
 import com.ericchee.songdataprovider.SongDataProvider
@@ -37,12 +35,14 @@ class SongListActivity : AppCompatActivity() {
                 Toast.makeText(this@SongListActivity,
                     root.context.getString(R.string.toast_delete_song, song.title, song.artist),
                     Toast.LENGTH_SHORT).show()
-                adapter.shuffleSongList(editedList)
+                adapter.updateSongList(editedList)
                 listOfSongs = editedList
             }
 
             btnShuffle.setOnClickListener {
-                adapter.shuffleSongList(listOfSongs.toMutableList().shuffled())
+                val shuffledList = listOfSongs.toMutableList().shuffled()
+                adapter.updateSongList(shuffledList)
+                listOfSongs = shuffledList
             }
 
             clMiniPlayer.setOnClickListener {

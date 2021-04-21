@@ -37,17 +37,17 @@ class SongListAdapter(private var songList: List<Song>): RecyclerView.Adapter<So
 
     override fun getItemCount(): Int = songList.size
 
-    fun shuffleSongList(newSongList: List<Song>) {
+    fun updateSongList(newSongList: List<Song>) {
         val callback = SongDiffCallback(newSongList, songList)
         val result = DiffUtil.calculateDiff(callback)
         result.dispatchUpdatesTo(this)
         this.songList = newSongList
     }
 
-    fun updateSongList(newSongList: List<Song>) {
-        this.songList = newSongList
-        notifyDataSetChanged()
-    }
+//    fun updateSongList(newSongList: List<Song>) {
+//        this.songList = newSongList
+//        notifyDataSetChanged()
+//    }
 
     class SongListViewHolder(val binding: ItemSongBinding): RecyclerView.ViewHolder(binding.root)
 
