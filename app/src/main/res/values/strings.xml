@@ -13,4 +13,6 @@
     <string name="square_ratio">1:1</string>
     <string name="default_mini_player_text">No Song Playing</string>
     <string name="mini_player_text">%s - %s</string>
+    <string name="num_plays_text">%d plays</string>
+    <string name="toast_delete_song">%s by %s was deleted</string>
 </resources>
