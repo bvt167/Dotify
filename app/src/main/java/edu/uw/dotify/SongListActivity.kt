@@ -30,8 +30,8 @@ class SongListActivity : AppCompatActivity() {
                 currentSong = song
             }
 
-            adapter.onSongLongClickListener = {position, song ->
-                val editedList = listOfSongs.toMutableList().apply{ removeAt(position) }
+            adapter.onSongLongClickListener = {song ->
+                val editedList = listOfSongs.toMutableList().apply{ remove(song) }
                 Toast.makeText(this@SongListActivity,
                     root.context.getString(R.string.toast_delete_song, song.title, song.artist),
                     Toast.LENGTH_SHORT).show()

@@ -10,7 +10,7 @@ import edu.uw.dotify.databinding.ItemSongBinding
 class SongListAdapter(private var songList: List<Song>): RecyclerView.Adapter<SongListAdapter.SongListViewHolder>() {
 
     var onSongClickListener: (song: Song) -> Unit = { }
-    var onSongLongClickListener: (position: Int, song: Song) -> Unit = {position, song ->}
+    var onSongLongClickListener: (song: Song) -> Unit = { }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongListViewHolder {
         val binding = ItemSongBinding.inflate(LayoutInflater.from(parent.context))
@@ -29,7 +29,7 @@ class SongListAdapter(private var songList: List<Song>): RecyclerView.Adapter<So
             }
 
             root.setOnLongClickListener {
-                onSongLongClickListener(position, song)
+                onSongLongClickListener(song)
                 true
             }
         }
@@ -44,6 +44,7 @@ class SongListAdapter(private var songList: List<Song>): RecyclerView.Adapter<So
         this.songList = newSongList
     }
 
+//    non animated way to update song list
 //    fun updateSongList(newSongList: List<Song>) {
 //        this.songList = newSongList
 //        notifyDataSetChanged()
