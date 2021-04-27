@@ -10,8 +10,7 @@ import com.ericchee.songdataprovider.Song
 import edu.uw.dotify.databinding.ActivityPlayerBinding
 import kotlin.random.Random
 
-private const val SONG_KEY = "song"
-//private const val USERNAME_KEY = "username"
+const val SONG_KEY: String = "song"
 
 fun navigateToPlayerActivity(context: Context, song: Song) = with(context) {
     val intent = Intent(this, PlayerActivity::class.java).apply {
@@ -26,6 +25,7 @@ fun navigateToPlayerActivity(context: Context, song: Song) = with(context) {
 class PlayerActivity : AppCompatActivity() {
 
     private var numPlays : Int = 0
+    private var currentSong: Song? = null
     private lateinit var binding: ActivityPlayerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +34,7 @@ class PlayerActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding = ActivityPlayerBinding.inflate(layoutInflater).apply { setContentView(root) }
         numPlays = Random.nextInt(0, 1000)
-        val currentSong: Song? = intent.getParcelableExtra<Song>(SONG_KEY)
+        currentSong = intent.getParcelableExtra<Song>(SONG_KEY)
 
 //        if (savedInstanceState != null) {
 //            with(savedInstanceState) {
@@ -61,14 +61,17 @@ class PlayerActivity : AppCompatActivity() {
                 showToastMsg(getString(R.string.toast_next))
             }
 
-            btnChangeUser.setOnClickListener {
-                changeUser()
-            }
-
             ivCoverArt.setOnLongClickListener {
                 changePlayCountColor()
                 true
             }
+
+            btnSettings.setOnClickListener {
+                this@PlayerActivity.currentSong?.let {
+                    navigateToSettingsActivity(this@PlayerActivity, it)
+                }
+            }
+
         }
 
 
@@ -82,29 +85,7 @@ class PlayerActivity : AppCompatActivity() {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
-    private fun changeUser() {
-        binding.btnChangeUser.text = "Apply"
-        binding.tvUsername.visibility = View.GONE
-        binding.etNewUsername.visibility = View.VISIBLE
-        binding.btnChangeUser.setOnClickListener {
-            setNewUsername()
-        }
-    }
 
-    private fun setNewUsername() {
-        val newUsername : String = binding.etNewUsername.text.toString()
-        if (!newUsername.isNullOrEmpty()) {
-            with(binding) {
-                tvUsername.text = newUsername
-                btnChangeUser.text = "Change User"
-                tvUsername.visibility = View.VISIBLE
-                etNewUsername.visibility = View.GONE
-                btnChangeUser.setOnClickListener {
-                    changeUser()
-                }
-            }
-        }
-    }
 
     private fun changePlayCountColor() {
         val currentColor = binding.tvNumPlays.currentTextColor
@@ -120,6 +101,30 @@ class PlayerActivity : AppCompatActivity() {
         return super.onSupportNavigateUp()
     }
 
+//    private fun changeUser() {
+//        binding.btnChangeUser.text = "Apply"
+//        binding.tvUsername.visibility = View.GONE
+//        binding.etNewUsername.visibility = View.VISIBLE
+//        binding.btnChangeUser.setOnClickListener {
+//            setNewUsername()
+//        }
+//    }
+//
+//    private fun setNewUsername() {
+//        val newUsername : String = binding.etNewUsername.text.toString()
+//        if (!newUsername.isNullOrEmpty()) {
+//            with(binding) {
+//                tvUsername.text = newUsername
+//                btnChangeUser.text = "Change User"
+//                tvUsername.visibility = View.VISIBLE
+//                etNewUsername.visibility = View.GONE
+//                btnChangeUser.setOnClickListener {
+//                    changeUser()
+//                }
+//            }
+//        }
+//    }
+//
 //    override fun onSaveInstanceState(outState: Bundle) {
 //        outState?.run {
 //            putString(USERNAME_KEY, binding.tvUsername.text.toString())

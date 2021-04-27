@@ -46,8 +46,8 @@ class SongListActivity : AppCompatActivity() {
             }
 
             clMiniPlayer.setOnClickListener {
-                if (currentSong != null) {
-                    navigateToPlayerActivity(this@SongListActivity, currentSong!!)
+                this@SongListActivity.currentSong?.let {
+                    navigateToPlayerActivity(this@SongListActivity, it)
                 }
             }
             

@@ -4,7 +4,7 @@
     <string name="defaultUsername">first_avenger</string>
     <string name="change_user">CHANGE USER</string>
     <string name="title">Strangers</string>
-    <string name="cover_description">Strangers Cover Art</string>
+    <string name="cover_description">Song Cover Art</string>
     <string name="previous_btn_description">Previous Song</string>
     <string name="play_btn_description">Play Song</string>
     <string name="next_btn_description">Next Song</string>
@@ -15,4 +15,7 @@
     <string name="mini_player_text">%s - %s</string>
     <string name="num_plays_text">%d plays</string>
     <string name="toast_delete_song">%s by %s was deleted</string>
+    <string name="settings">Settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

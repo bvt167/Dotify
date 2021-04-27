@@ -17,4 +17,6 @@
     <dimen name="item_song_small_pic_height">70dp</dimen>
     <dimen name="padding_med">8dp</dimen>
     <dimen name="margin_sm">4dp</dimen>
+    <dimen name="settings_btn_height">50dp</dimen>
+    <dimen name="padding_large">18dp</dimen>
 </resources>
