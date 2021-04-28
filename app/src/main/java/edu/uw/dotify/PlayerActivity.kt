@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.ericchee.songdataprovider.Song
@@ -69,12 +71,6 @@ class PlayerActivity : AppCompatActivity() {
                 true
             }
 
-            btnSettings.setOnClickListener {
-                this@PlayerActivity.currentSong?.let {
-                    navigateToSettingsActivity(this@PlayerActivity, it, this@PlayerActivity.numPlays)
-                }
-            }
-
         }
 
 
@@ -112,36 +108,17 @@ class PlayerActivity : AppCompatActivity() {
         return super.onSupportNavigateUp()
     }
 
-//    private fun changeUser() {
-//        binding.btnChangeUser.text = "Apply"
-//        binding.tvUsername.visibility = View.GONE
-//        binding.etNewUsername.visibility = View.VISIBLE
-//        binding.btnChangeUser.setOnClickListener {
-//            setNewUsername()
-//        }
-//    }
-//
-//    private fun setNewUsername() {
-//        val newUsername : String = binding.etNewUsername.text.toString()
-//        if (!newUsername.isNullOrEmpty()) {
-//            with(binding) {
-//                tvUsername.text = newUsername
-//                btnChangeUser.text = "Change User"
-//                tvUsername.visibility = View.VISIBLE
-//                etNewUsername.visibility = View.GONE
-//                btnChangeUser.setOnClickListener {
-//                    changeUser()
-//                }
-//            }
-//        }
-//    }
-//
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        outState?.run {
-//            putString(USERNAME_KEY, binding.tvUsername.text.toString())
-//        }
-//        if (outState != null) {
-//            super.onSaveInstanceState(outState)
-//        }
-//    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.player_menu_items, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.app_bar_settings -> this@PlayerActivity.currentSong?.let {
+                navigateToSettingsActivity(this@PlayerActivity, it, this@PlayerActivity.numPlays)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

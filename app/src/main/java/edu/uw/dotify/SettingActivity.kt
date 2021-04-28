@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.ericchee.songdataprovider.Song
 import edu.uw.dotify.databinding.ActivitySettingBinding
 
@@ -22,13 +24,17 @@ fun navigateToSettingsActivity(context: Context, song: Song, playCount: Int) = w
 
 class SettingActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivitySettingBinding
     private val navController by lazy { findNavController(R.id.navHost) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_setting)
+        binding = ActivitySettingBinding.inflate(layoutInflater).apply { setContentView(root) }
 
         navController.setGraph(R.navigation.nav_graph, intent.extras)
+        setupActionBarWithNavController(navController)
     }
+
+    override fun onSupportNavigateUp() = navController.navigateUp()
 
 }
