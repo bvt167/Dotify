@@ -30,4 +30,5 @@ class SettingActivity : AppCompatActivity() {
 
         navController.setGraph(R.navigation.nav_graph, intent.extras)
     }
+
 }

@@ -17,8 +17,16 @@ class SongListActivity : AppCompatActivity() {
         title = "All Songs"
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_song_list)
-
         binding = ActivitySongListBinding.inflate(layoutInflater).apply { setContentView(root) }
+
+        if (savedInstanceState != null) {
+            with(savedInstanceState) {
+                currentSong = getParcelable(SONG_KEY)
+                currentSong?.let {
+                    setMiniPlayerText(it)
+                }
+            }
+        }
 
         with (binding) {
             listOfSongs = SongDataProvider.getAllSongs()
@@ -26,7 +34,7 @@ class SongListActivity : AppCompatActivity() {
             rvAllSongs.adapter = adapter
 
             adapter.onSongClickListener = {song: Song ->
-                tvMiniPlayerText.text = root.context.getString(R.string.mini_player_text, song.title, song.artist)
+                setMiniPlayerText(song)
                 currentSong = song
             }
 
@@ -52,5 +60,16 @@ class SongListActivity : AppCompatActivity() {
             }
             
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.run {
+            putParcelable(SONG_KEY, currentSong)
+        }
+        super.onSaveInstanceState(outState)
+    }
+
+    private fun setMiniPlayerText(song: Song) {
+        binding.tvMiniPlayerText.text = this@SongListActivity.getString(R.string.mini_player_text, song.title, song.artist)
     }
 }

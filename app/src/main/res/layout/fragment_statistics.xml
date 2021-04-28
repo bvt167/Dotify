@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".StatisticsFragment">
+    tools:context=".StatisticsFragment"
+    android:padding="@dimen/padding_large">
 
     <ImageView
         android:id="@+id/ivCoverArt"
@@ -12,7 +13,6 @@
         android:layout_height="@dimen/default_height"
         android:layout_margin="@dimen/default_margin"
         app:layout_constraintDimensionRatio="@string/square_ratio"
-        android:src="@drawable/strangers_cover_art"
         android:contentDescription="@string/cover_description"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>

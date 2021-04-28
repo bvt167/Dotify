@@ -31,11 +31,19 @@ class PlayerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (savedInstanceState != null) {
+            with(savedInstanceState) {
+                currentSong = getParcelable(SONG_KEY)
+                numPlays = getInt(PLAY_COUNT_KEY)
+            }
+        } else {
+            numPlays = Random.nextInt(0, 1000)
+            currentSong = intent.getParcelableExtra<Song>(SONG_KEY)
+        }
+
         setContentView(R.layout.activity_player)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding = ActivityPlayerBinding.inflate(layoutInflater).apply { setContentView(root) }
-        numPlays = Random.nextInt(0, 1000)
-        currentSong = intent.getParcelableExtra<Song>(SONG_KEY)
 
         with(binding) {
             tvTitle.text = currentSong?.title
@@ -89,6 +97,14 @@ class PlayerActivity : AppCompatActivity() {
         } else {
             binding.tvNumPlays.setTextColor(getColor(R.color.black))
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.run {
+            putParcelable(SONG_KEY, currentSong)
+            putInt(PLAY_COUNT_KEY, numPlays)
+        }
+        super.onSaveInstanceState(outState)
     }
 
     override fun onSupportNavigateUp(): Boolean {
