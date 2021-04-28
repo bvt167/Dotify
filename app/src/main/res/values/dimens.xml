@@ -19,4 +19,5 @@
     <dimen name="margin_sm">4dp</dimen>
     <dimen name="settings_btn_height">50dp</dimen>
     <dimen name="padding_large">18dp</dimen>
+    <dimen name="big_cover_width">300dp</dimen>
 </resources>

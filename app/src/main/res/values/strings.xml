@@ -14,6 +14,7 @@
     <string name="default_mini_player_text">No Song Playing</string>
     <string name="mini_player_text">%s - %s</string>
     <string name="num_plays_text">%d plays</string>
+    <string name="statistics_play_count_text">%s has been played %d times</string>
     <string name="toast_delete_song">%s by %s was deleted</string>
     <string name="settings">Settings</string>
     <!-- TODO: Remove or change this placeholder text -->

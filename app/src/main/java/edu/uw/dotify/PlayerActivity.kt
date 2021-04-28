@@ -11,6 +11,7 @@ import edu.uw.dotify.databinding.ActivityPlayerBinding
 import kotlin.random.Random
 
 const val SONG_KEY: String = "song"
+const val PLAY_COUNT_KEY = "playCount"
 
 fun navigateToPlayerActivity(context: Context, song: Song) = with(context) {
     val intent = Intent(this, PlayerActivity::class.java).apply {
@@ -35,12 +36,6 @@ class PlayerActivity : AppCompatActivity() {
         binding = ActivityPlayerBinding.inflate(layoutInflater).apply { setContentView(root) }
         numPlays = Random.nextInt(0, 1000)
         currentSong = intent.getParcelableExtra<Song>(SONG_KEY)
-
-//        if (savedInstanceState != null) {
-//            with(savedInstanceState) {
-//                binding.tvUsername.text = getString(USERNAME_KEY)
-//            }
-//        }
 
         with(binding) {
             tvTitle.text = currentSong?.title
@@ -68,7 +63,7 @@ class PlayerActivity : AppCompatActivity() {
 
             btnSettings.setOnClickListener {
                 this@PlayerActivity.currentSong?.let {
-                    navigateToSettingsActivity(this@PlayerActivity, it)
+                    navigateToSettingsActivity(this@PlayerActivity, it, this@PlayerActivity.numPlays)
                 }
             }
 
