@@ -1,20 +1,19 @@
-# Homework 2: RecyclerView and Multiple Activities
+# Homework 3: Fragments, Activity Lifecycle, & Rotation
 
 ## Brandon Ta
 
 ### Description
 
-Expanded on Dotify by adding a list of songs layout and activity. Users can click on songs to "play it", displaying
-the song on a mini player at the bottom of the screen. Additionally, users can shuffle the list of songs, long click
-on a song to delete it, and click on the mini player to transition to the player activity from HW1.
+Expanded on Dotify by adding a settings button on the top right of the Player. This leads to a settings page that has buttons to additional pages. These pages include an about page, a profile page, and a statistics page. The statistics page displays the cover of the current song as well as its play count.
+
 
 ### Attempted Extra Credit
 
-- There is a stock Android up button at the top left that will bring users back to the list of songs activity
-from the player activity.
-- Long clicking on a song will delete and show a Toast detailing what song was deleted.
-- The shuffle and delete animations are animated using DiffUtil.
+- There is a button at the top left of each fragment other than the home settings fragment that brings users back to the previous fragment.
+- The settings button on the Player is an action button located on the top header bar.
 
-### Screenshot
+### Screenshots
 
-![Dotify App](./imgs/HW2.png)
+![Landscape player](./imgs/HW3_Player_Landscape.png)
+![Settings page](./imgs/HW3_Settings.png)
+![Statistics page](./imgs/HW3_Statistics.png)
