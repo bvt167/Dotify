@@ -77,7 +77,8 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun incrementNumPlays() {
-        binding.tvNumPlays.text = "${(numPlays++).toString()} plays"
+        numPlays += 1
+        binding.tvNumPlays.text = "${(numPlays).toString()} plays"
     }
 
     private fun showToastMsg(msg : String) {

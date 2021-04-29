@@ -20,4 +20,6 @@
     <dimen name="settings_btn_height">50dp</dimen>
     <dimen name="padding_large">18dp</dimen>
     <dimen name="big_cover_width">300dp</dimen>
+    <dimen name="cover_art_landscape_width">180dp</dimen>
+    <dimen name="song_title_landscape_text_width">360dp</dimen>
 </resources>
