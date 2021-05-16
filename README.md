@@ -1,19 +1,20 @@
-# Homework 3: Fragments, Activity Lifecycle, & Rotation
+# Homework 4: Application, JSON parsing, HTTP REST calls
 
 ## Brandon Ta
 
 ### Description
 
-Expanded on Dotify by adding a settings button on the top right of the Player. This leads to a settings page that has buttons to additional pages. These pages include an about page, a profile page, and a statistics page. The statistics page displays the cover of the current song as well as its play count.
+Organized the Dotify project codebase by creating an application object that handles some of the app's functionality and information through managers. Getting the list of songs is also done through an HTTP request. Also added a swipe to refresh feature to the list of songs screen. An error message is shown if there is an error getting the list of songs.
 
 
 ### Attempted Extra Credit
 
-- There is a button at the top left of each fragment other than the home settings fragment that brings users back to the previous fragment.
-- The settings button on the Player is an action button located on the top header bar.
+- Users can swipe to refresh the list of songs.
+- The recycler view is hidden and an error msg is shown if an error occurs.
+- Refreshing will hide the error msg, show the recycler view, and refresh the list of songs.
 
 ### Screenshots
 
-![Landscape player](./imgs/HW3_Player_Landscape.png)
-![Settings page](./imgs/HW3_Settings.png)
-![Statistics page](./imgs/HW3_Statistics.png)
+![Error](./imgs/HW4_Error.png)
+![Swipe to Refresh](./imgs/HW4_Swipe_to_Refresh.png)
+![List of Songs](./imgs/HW4_Song_List.png)
