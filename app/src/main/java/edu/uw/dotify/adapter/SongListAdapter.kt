@@ -1,11 +1,12 @@
-package edu.uw.dotify
+package edu.uw.dotify.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.DiffUtil
-import com.ericchee.songdataprovider.Song
+import coil.load
 import edu.uw.dotify.databinding.ItemSongBinding
+import edu.uw.dotify.model.Song
 
 class SongListAdapter(private var songList: List<Song>): RecyclerView.Adapter<SongListAdapter.SongListViewHolder>() {
 
@@ -17,10 +18,10 @@ class SongListAdapter(private var songList: List<Song>): RecyclerView.Adapter<So
         return SongListViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: SongListAdapter.SongListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SongListViewHolder, position: Int) {
         val song: Song = songList[position]
         with(holder.binding) {
-            ivSongPic.setImageResource(song.smallImageID)
+            ivSongPic.load(song.smallImageURL)
             tvSongTitle.text = song.title
             tvSongArtistName.text = song.artist
 

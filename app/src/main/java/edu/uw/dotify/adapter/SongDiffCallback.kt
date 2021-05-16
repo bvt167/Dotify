@@ -1,7 +1,7 @@
-package edu.uw.dotify
+package edu.uw.dotify.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.ericchee.songdataprovider.Song
+import edu.uw.dotify.model.Song
 
 class SongDiffCallback(private val newSongList: List<Song>, private val oldSongList: List<Song>): DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldSongList.size

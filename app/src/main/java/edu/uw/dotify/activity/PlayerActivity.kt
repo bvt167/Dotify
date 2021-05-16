@@ -1,4 +1,4 @@
-package edu.uw.dotify
+package edu.uw.dotify.activity
 
 import android.content.Context
 import android.content.Intent
@@ -8,8 +8,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import com.ericchee.songdataprovider.Song
+import coil.load
+import edu.uw.dotify.DotifyApplication
+import edu.uw.dotify.R
 import edu.uw.dotify.databinding.ActivityPlayerBinding
+import edu.uw.dotify.manager.PlayerManager
+import edu.uw.dotify.model.Song
 import kotlin.random.Random
 
 const val SONG_KEY: String = "song"
@@ -27,32 +31,39 @@ fun navigateToPlayerActivity(context: Context, song: Song) = with(context) {
 
 class PlayerActivity : AppCompatActivity() {
 
-    private var numPlays : Int = 0
-    private var currentSong: Song? = null
+    private lateinit var playerManager: PlayerManager
     private lateinit var binding: ActivityPlayerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        this.playerManager = (application as DotifyApplication).playerManager
+        binding = ActivityPlayerBinding.inflate(layoutInflater).apply { setContentView(root) }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        var currentSong: Song?
         if (savedInstanceState != null) {
             with(savedInstanceState) {
-                currentSong = getParcelable(SONG_KEY)
-                numPlays = getInt(PLAY_COUNT_KEY)
+                currentSong =  getParcelable(SONG_KEY)
+                currentSong?.let {
+                    playerManager.setCurrentSong(it)
+                }
+                playerManager.setPlayCount(getInt(PLAY_COUNT_KEY))
             }
         } else {
-            numPlays = Random.nextInt(0, 1000)
             currentSong = intent.getParcelableExtra<Song>(SONG_KEY)
+            currentSong?.let {
+                playerManager.setCurrentSong(it)
+            }
+            playerManager.setPlayCount(Random.nextInt(0, 1000))
         }
-
-        setContentView(R.layout.activity_player)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding = ActivityPlayerBinding.inflate(layoutInflater).apply { setContentView(root) }
 
         with(binding) {
             tvTitle.text = currentSong?.title
             tvArtist.text = currentSong?.artist
-            currentSong?.largeImageID?.let { ivCoverArt.setImageResource(it) }
+            currentSong?.largeImageURL?.let { ivCoverArt.load(it) }
 
-            tvNumPlays.text = root.context.getString(R.string.num_plays_text, numPlays)
+            tvNumPlays.text = root.context.getString(R.string.num_plays_text, playerManager.playCount)
 
             ibPlay.setOnClickListener {
                 incrementNumPlays()
@@ -77,15 +88,12 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun incrementNumPlays() {
-        numPlays += 1
-        binding.tvNumPlays.text = "${(numPlays).toString()} plays"
+        binding.tvNumPlays.text = "${(playerManager.incrementPlayCount()).toString()} plays"
     }
 
     private fun showToastMsg(msg : String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
-
-
 
     private fun changePlayCountColor() {
         val currentColor = binding.tvNumPlays.currentTextColor
@@ -98,8 +106,8 @@ class PlayerActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.run {
-            putParcelable(SONG_KEY, currentSong)
-            putInt(PLAY_COUNT_KEY, numPlays)
+            putParcelable(SONG_KEY, playerManager.currentSong)
+            putInt(PLAY_COUNT_KEY, playerManager.playCount)
         }
         super.onSaveInstanceState(outState)
     }
@@ -116,8 +124,8 @@ class PlayerActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.app_bar_settings -> this@PlayerActivity.currentSong?.let {
-                navigateToSettingsActivity(this@PlayerActivity, it, this@PlayerActivity.numPlays)
+            R.id.app_bar_settings -> this@PlayerActivity.playerManager.currentSong?.let {
+                navigateToSettingsActivity(this@PlayerActivity, it, this@PlayerActivity.playerManager.playCount)
             }
         }
         return super.onOptionsItemSelected(item)

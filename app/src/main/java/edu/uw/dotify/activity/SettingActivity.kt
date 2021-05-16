@@ -1,4 +1,4 @@
-package edu.uw.dotify
+package edu.uw.dotify.activity
 
 import android.content.Context
 import android.content.Intent
@@ -8,8 +8,9 @@ import android.view.LayoutInflater
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.ericchee.songdataprovider.Song
+import edu.uw.dotify.R
 import edu.uw.dotify.databinding.ActivitySettingBinding
+import edu.uw.dotify.model.Song
 
 fun navigateToSettingsActivity(context: Context, song: Song, playCount: Int) = with(context) {
     val intent = Intent(this, SettingActivity::class.java).apply {
