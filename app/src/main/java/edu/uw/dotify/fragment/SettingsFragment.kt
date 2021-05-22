@@ -42,7 +42,7 @@ class SettingsFragment : Fragment() {
         setFragmentNavigation()
 
         with(binding) {
-            switchRecommendationNotif.setOnCheckedChangeListener { buttonView, isChecked ->
+            switchRecommendationNotif.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     songRecommendationManager.songRecommendationPeriodically()
                 }

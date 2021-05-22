@@ -2,13 +2,18 @@ package edu.uw.dotify.manager
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import edu.uw.dotify.R
 import edu.uw.dotify.DotifyApplication
+import edu.uw.dotify.activity.PlayerActivity
+import edu.uw.dotify.activity.SONG_KEY
 import edu.uw.dotify.model.Song
 import repository.DataRepository
 import kotlin.random.Random
@@ -32,11 +37,20 @@ class SongNotificationManager(
     }
 
     fun publishNewSongNotification(randomSong: Song) {
+        val intent = Intent(context, PlayerActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            val bundle = Bundle().apply {
+                putParcelable(SONG_KEY, randomSong)
+            }
+            putExtras(bundle)
+        }
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
         val builder = NotificationCompat.Builder(context, NEW_SONG_CHANNEL_ID)    // channel id from creating the channel
             .setSmallIcon(R.drawable.ic_baseline_android_24)
             .setContentTitle(this.context.getString(R.string.new_song_notification_title, randomSong.artist))
             .setContentText(this.context.getString(R.string.new_song_notification_text, randomSong.title))
-            // .setContentIntent(pendingIntent)    // sets the action when user clicks on notification
+            .setContentIntent(pendingIntent)    // sets the action when user clicks on notification
             .setAutoCancel(true)    // This will dismiss the notification tap
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
