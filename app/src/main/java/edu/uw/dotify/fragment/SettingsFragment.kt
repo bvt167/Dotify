@@ -2,6 +2,7 @@ package edu.uw.dotify.fragment
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.edit
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import edu.uw.dotify.DotifyApplication
@@ -18,6 +20,8 @@ import edu.uw.dotify.databinding.FragmentSettingsBinding
 import edu.uw.dotify.manager.SongRecommendationManager
 import edu.uw.dotify.model.Song
 
+private const val SONG_RECOMMENDATION_PREF_KEY = "SONG_RECOMMENDATION_PREF_KEY "
+
 class SettingsFragment : Fragment() {
 
     private val navController by lazy { findNavController() }
@@ -25,6 +29,7 @@ class SettingsFragment : Fragment() {
     private val safeArgs: SettingsFragmentArgs by navArgs()
     private lateinit var application: DotifyApplication
     private lateinit var songRecommendationManager: SongRecommendationManager
+    private lateinit var preferences: SharedPreferences
     private lateinit var song: Song
     private var playCount: Int = 0
 
@@ -32,6 +37,7 @@ class SettingsFragment : Fragment() {
         super.onAttach(context)
         application = context.applicationContext as DotifyApplication
         songRecommendationManager = application.songRecommendationManager
+        preferences = application.preferences
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -40,14 +46,7 @@ class SettingsFragment : Fragment() {
         playCount = safeArgs.playCount
 
         setFragmentNavigation()
-
-        with(binding) {
-            switchRecommendationNotif.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    songRecommendationManager.songRecommendationPeriodically()
-                }
-            }
-        }
+        setSwitchRecommendationNotificationFunctionality()
 
         return binding.root
     }
@@ -70,6 +69,27 @@ class SettingsFragment : Fragment() {
                     )
                 )
             }
+        }
+    }
+
+    private fun setSwitchRecommendationNotificationFunctionality() {
+        with(binding) {
+            switchRecommendationNotif.isChecked = preferences.getBoolean(SONG_RECOMMENDATION_PREF_KEY, false)
+            startSongRecommendation(switchRecommendationNotif.isChecked)
+            switchRecommendationNotif.setOnCheckedChangeListener { _, isChecked ->
+                preferences.edit {
+                    putBoolean(SONG_RECOMMENDATION_PREF_KEY, isChecked)
+                }
+                startSongRecommendation(isChecked)
+            }
+        }
+    }
+
+    private fun startSongRecommendation(isChecked: Boolean) {
+        if (isChecked) {
+            songRecommendationManager.songRecommendationPeriodically()
+        } else {
+            songRecommendationManager.cancelSongRecommendationWork()
         }
     }
 }

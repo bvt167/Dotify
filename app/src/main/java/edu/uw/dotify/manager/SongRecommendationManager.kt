@@ -1,6 +1,5 @@
 package edu.uw.dotify.manager
 
-import android.app.ApplicationErrorReport
 import android.content.Context
 import androidx.work.*
 import edu.uw.dotify.worker.SongRecommendationWorker
@@ -29,7 +28,7 @@ class SongRecommendationManager(context: Context) {
     }
 
     fun songRecommendationPeriodicallyExtraCredit() {
-        cancelWorkIfRunningByTag(SONG_RECOMMENDATION_WORK_TAG)
+        cancelSongRecommendationWork()
 
         val request = PeriodicWorkRequestBuilder<SongRecommendationWorker>(2, TimeUnit.DAYS)
             .setInitialDelay(5, TimeUnit.SECONDS)
@@ -43,6 +42,10 @@ class SongRecommendationManager(context: Context) {
             .build()
 
         workManager.enqueue(request)
+    }
+
+    fun cancelSongRecommendationWork() {
+        cancelWorkIfRunningByTag(SONG_RECOMMENDATION_WORK_TAG)
     }
 
     private fun cancelWorkIfRunningByTag(tag: String) {
