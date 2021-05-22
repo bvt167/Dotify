@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.SettingsFragment">
 
     <LinearLayout
@@ -28,6 +29,12 @@
             android:layout_height="@dimen/settings_btn_height"
             android:text="Statistics"
             android:padding="@dimen/padding_med"/>
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchRecommendationNotif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Song Recommendation Notifications"
+            app:switchPadding="@dimen/padding_large"/>
 
     </LinearLayout>
 
