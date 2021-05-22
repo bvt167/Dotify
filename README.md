@@ -1,20 +1,20 @@
-# Homework 4: Application, JSON parsing, HTTP REST calls
+# Homework 5: WorkManager & Notifications
 
 ## Brandon Ta
 
 ### Description
 
-Organized the Dotify project codebase by creating an application object that handles some of the app's functionality and information through managers. Getting the list of songs is also done through an HTTP request. Also added a swipe to refresh feature to the list of songs screen. An error message is shown if there is an error getting the list of songs.
+Added a new feature that allows users to get periodic notifications of new song releases. This feature is controlled with a switch and persists through destroying the app. The notifications can be clicked on to launch the player screen that displays the song mentioned in the notification.
 
 
 ### Attempted Extra Credit
 
-- Users can swipe to refresh the list of songs.
-- The recycler view is hidden and an error msg is shown if an error occurs.
-- Refreshing will hide the error msg, show the recycler view, and refresh the list of songs.
+- Tapping the notification passes its contained song to the PlayerActivity and launches it with said song
+
+- In `SongRecommendationManager.kt` there is a function called `songRecommendationPeriodicallyExtraCredit()` that has the same functionality of sending users periodic notifications of new song releases but does so every two days and when the device is connected to a network and the device's battery is not low.
 
 ### Screenshots
 
-![Error](./imgs/HW4_Error.png)
-![Swipe to Refresh](./imgs/HW4_Swipe_to_Refresh.png)
-![List of Songs](./imgs/HW4_Song_List.png)
+![Notificaton Switch](./imgs/HW5_Notificaton_Switch.png)
+![Notification](./imgs/HW5_Notification.png)
+![Notification to Player](./imgs/HW5_Notification_to_Player.png)
