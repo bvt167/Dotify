@@ -4,12 +4,13 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import edu.uw.dotify.R
-import androidx.lifecycle.lifecycleScope
-import com.ericchee.songdataprovider.SongDataProvider
+import edu.uw.dotify.DotifyApplication
 import edu.uw.dotify.model.Song
+import repository.DataRepository
 import kotlin.random.Random
 
 private const val NEW_SONG_CHANNEL_ID = "NEW_SONG_CHANNEL_ID"
@@ -20,12 +21,17 @@ class SongNotificationManager(
 
     private val notificationManager = NotificationManagerCompat.from(context)
 
+    // For converting Song from SongDataProvider to another Song class
+    private var application: DotifyApplication
+    private var dataRepository: DataRepository
+
     init {
         initNotificationChannels()
+        application = context.applicationContext as DotifyApplication
+        dataRepository = application.dataRepository
     }
 
-    fun publishNewSongNotification() {
-        var randomSong = SongDataProvider.getAllSongs().random()
+    fun publishNewSongNotification(randomSong: Song) {
         val builder = NotificationCompat.Builder(context, NEW_SONG_CHANNEL_ID)    // channel id from creating the channel
             .setSmallIcon(R.drawable.ic_baseline_android_24)
             .setContentTitle(this.context.getString(R.string.new_song_notification_title, randomSong.artist))

@@ -13,10 +13,11 @@ class SongRecommendationWorker(
 
     private val application by lazy { context.applicationContext as DotifyApplication }
     private val songNotificationManager by lazy { application.songNotificationManager }
+    private val dataRepository by lazy { application.dataRepository }
 
     override suspend fun doWork(): Result {
-        Log.i("wtf", "This is the song recommendation worker reporting for duty")
-        songNotificationManager.publishNewSongNotification()
+        val randomSong = dataRepository.getSongList().songs.random()
+        songNotificationManager.publishNewSongNotification(randomSong)
         return Result.success()
     }
 }

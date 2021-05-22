@@ -12,7 +12,7 @@ class SongRecommendationManager(context: Context) {
     private val workManager: WorkManager = WorkManager.getInstance(context)
 
     fun songRecommendationPeriodically() {
-        cancelWorkIfRunning(SONG_RECOMMENDATION_WORK_TAG)
+        cancelWorkIfRunningByTag(SONG_RECOMMENDATION_WORK_TAG)
 
         val request = PeriodicWorkRequestBuilder<SongRecommendationWorker>(15, TimeUnit.MINUTES)
             .setInitialDelay(5, TimeUnit.SECONDS)
@@ -27,13 +27,13 @@ class SongRecommendationManager(context: Context) {
         workManager.enqueue(request)
     }
 
-    private fun cancelWorkIfRunning(tag: String) {
-        if (isWorkRunning(tag)) {
+    private fun cancelWorkIfRunningByTag(tag: String) {
+        if (isWorkRunningByTag(tag)) {
             workManager.cancelAllWorkByTag(tag)
         }
     }
 
-    private fun isWorkRunning(tag: String): Boolean {
+    private fun isWorkRunningByTag(tag: String): Boolean {
         return workManager.getWorkInfosByTag(tag).get().any {
             when(it.state) {
                 WorkInfo.State.RUNNING,
