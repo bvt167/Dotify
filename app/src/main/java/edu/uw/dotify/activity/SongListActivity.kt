@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import com.ericchee.songdataprovider.SongDataProvider
 import edu.uw.dotify.DotifyApplication
 import edu.uw.dotify.R
 import edu.uw.dotify.adapter.SongListAdapter
@@ -68,7 +67,7 @@ class SongListActivity : AppCompatActivity() {
         with(binding) {
             lifecycleScope.launch {
                 runCatching {
-                    listOfSongs = (application as DotifyApplication).dataRespository.getSongList().songs
+                    listOfSongs = (application as DotifyApplication).dataRepository.getSongList().songs
                     val adapter = SongListAdapter(listOfSongs)
                     rvAllSongs.adapter = adapter
 
